@@ -1,0 +1,308 @@
+
+:root {
+    --accent: #00ff88;
+    --accent-soft: rgba(0, 255, 136, 0.15);
+    --bg: #050505;
+    --panel: #111;
+    --text: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: var(--bg);
+    color: var(--accent);
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* ---------- Boot Screen ---------- */
+
+#bootScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.core {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid var(--accent);
+    box-shadow: 0 0 20px var(--accent),
+                0 0 60px var(--accent);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 40px var(--accent),
+                    0 0 90px var(--accent);
+    }
+}
+
+#bootScreen h1 {
+    margin-top: 25px;
+    font-size: 42px;
+    letter-spacing: 5px;
+}
+
+#loadingText {
+    margin: 20px;
+}
+
+.bar {
+    width: min(300px, 75vw);
+    height: 10px;
+    background: #222;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress {
+    width: 0%;
+    height: 100%;
+    background: var(--accent);
+    animation: load 4s forwards;
+}
+
+@keyframes load {
+    to { width: 100%; }
+}
+
+/* ---------- Dashboard ---------- */
+
+#dashboard {
+    display: none;
+    height: 100vh;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+header h1 {
+    font-size: 32px;
+    letter-spacing: 3px;
+}
+
+select {
+    background: #111;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.welcome {
+    margin-top: 20px;
+}
+
+/* ---------- Animated AI Core ---------- */
+
+.aiCore {
+    width: 190px;
+    height: 190px;
+    margin: 18px auto;
+    position: relative;
+    display: grid;
+    place-items: center;
+}
+
+.aiCore svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.aiCore circle,
+.aiCore ellipse {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2;
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+.aiCore .ring1 {
+    animation: rotate 12s linear infinite;
+}
+
+.aiCore .ring2 {
+    animation: rotate 8s linear infinite reverse;
+}
+
+.aiCore .ring3 {
+    animation: rotate 16s linear infinite;
+}
+
+.aiCore .hub {
+    fill: var(--accent-soft);
+    stroke-width: 3;
+    animation: hubPulse 2s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes hubPulse {
+    50% {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+}
+
+body[data-state="thinking"] .aiCore .hub {
+    stroke: #ffd700;
+    fill: rgba(255, 215, 0, 0.2);
+}
+
+body[data-state="listening"] .aiCore .ring1 {
+    animation-duration: 3s;
+}
+
+body[data-state="speaking"] .aiCore .hub {
+    animation-duration: 0.6s;
+}
+
+/* ---------- Status ---------- */
+
+#status {
+    text-align: center;
+    margin: 8px 0 16px;
+    font-size: 14px;
+}
+
+/* ---------- Chat ---------- */
+
+.chatBox,
+#log {
+    margin-top: 15px;
+    min-height: 180px;
+    max-height: 38vh;
+    background: var(--panel);
+    border: 2px solid var(--accent);
+    border-radius: 20px;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.botMessage,
+.userMessage {
+    padding: 12px 15px;
+    border-radius: 12px;
+    max-width: 85%;
+    margin-bottom: 12px;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.botMessage {
+    background: #0d2a17;
+    color: white;
+    margin-right: auto;
+}
+
+.userMessage {
+    background: var(--accent-soft);
+    color: white;
+    margin-left: auto;
+}
+
+/* ---------- Controls ---------- */
+
+.inputArea,
+#bottomBar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #333;
+    font-size: 16px;
+    background: #fff;
+    color: #111;
+}
+
+button {
+    min-width: 48px;
+    min-height: 48px;
+    border: none;
+    border-radius: 12px;
+    padding: 8px 12px;
+    font-size: 17px;
+    background: var(--accent);
+    color: #000;
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+button:hover {
+    filter: brightness(1.15);
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 600px) {
+    #dashboard {
+        padding: 14px;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    .aiCore {
+        width: 155px;
+        height: 155px;
+    }
+
+    #log,
+    .chatBox {
+        max-height: 35vh;
+    }
+
+    .inputArea,
+    #bottomBar {
+        gap: 6px;
+    }
+
+    button {
+        min-width: 42px;
+        padding: 7px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
