@@ -2,7 +2,7 @@
 // Setup: create a Worker, paste this in, add a secret named ANTHROPIC_API_KEY,
 // then set ALLOWED_ORIGIN to your site (e.g. https://yourname.github.io).
 
-const ALLOWED_ORIGIN = "https://yourname.github.io";
+const ALLOWED_ORIGIN = "https://ai-test-self-three.vercel.app";
 
 const SYSTEM = `You are INEON, a calm, dry-witted AI assistant. Address the user as "sir" unless told otherwise.
 Be concise: one to three sentences unless asked for more. Replies may be read aloud, so avoid markdown and lists.`;
